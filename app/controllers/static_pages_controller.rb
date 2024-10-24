@@ -8,7 +8,8 @@ class StaticPagesController < ApplicationController
     end
     @flickr = Flickr.new
     begin
-      @photos = @flickr.photos.search(user_id: params[:user_id], format: "rest")
+      @photos = @flickr.photos.search(user_id: params[:user_id],
+                                      extras: "description", format: "rest")
     rescue Flickr::FailedResponse
       @photos = nil
     end

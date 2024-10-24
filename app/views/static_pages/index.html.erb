@@ -8,10 +8,11 @@ size: 12%>
 <% if @photos.nil? %>
   <p>No results. Enter a flickr user id to see their photos.</p>
 <% else %>
-  <% @photos.each_with_index do |photo, i| %>
+  <% @photos.each do |photo| %>
     <div class="photo">
-      <p><strong>Photo <%= i + 1 %>:</strong></p>
+      <p><strong><%= title(photo) %></strong></p>
       <img src=<%= img_src_url(photo) %>>
+      <p><%= description(photo) %></p>
     </div>
   <% end %>
 <% end %>
