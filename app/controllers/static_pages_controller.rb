@@ -2,14 +2,15 @@ class StaticPagesController < ApplicationController
   def index
     respond_to do |format|
       format.html
-      format.json { render json: { message: "Hello, World!" } }
+      format.xml { render xml: @photos }
     end
+    @flickr = Flickr.new
+    @photos = @flickr.photos.search(user_id: static_page_params[:user_id], format: "rest")
   end
 
   private
 
-  def get_flickr
-    flickr = Flickr.new
-    flickr.photos.search(tags: "ruby, rails")
+  def static_page_params
+    params.fetch(:static_page, {}).permit(:user_id)
   end
 end

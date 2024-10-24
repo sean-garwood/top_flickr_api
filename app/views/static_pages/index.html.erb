@@ -1,2 +1,13 @@
 <h1>Static page</h1>
-<p>todo: build form to fill in flickr username</p>
+<%= form_with url: :root, scope: :static_page, method: :get do |search_form| %>
+  <%= search_form.label :user_id %>
+  <%= search_form.text_field :user_id, placeholder: "enter flickr user id here",
+size: 12%>
+  <%= search_form.submit "Get photos"%>
+<% end %>
+<% unless @photos.nil? %>
+  <% @photos.each do |photo| %>
+    <img src=<%= build_img_src_url(photo) %>>
+    <br>
+  <% end %>
+<% end %>
