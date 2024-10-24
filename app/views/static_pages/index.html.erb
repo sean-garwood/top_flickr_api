@@ -1,13 +1,17 @@
 <h1>Static page</h1>
-<%= form_with url: :root, scope: :static_page, method: :get do |search_form| %>
+<%= form_with method: :get do |search_form| %>
   <%= search_form.label :user_id %>
   <%= search_form.text_field :user_id, placeholder: "enter flickr user id here",
 size: 12%>
   <%= search_form.submit "Get photos"%>
 <% end %>
-<% unless @photos.nil? %>
-  <% @photos.each do |photo| %>
-    <img src=<%= build_img_src_url(photo) %>>
-    <br>
+<% if @photos.nil? %>
+  <p>No results. Enter a flickr user id to see their photos.</p>
+<% else %>
+  <% @photos.each_with_index do |photo, i| %>
+    <div class="photo">
+      <p><strong>Photo <%= i + 1 %>:</strong></p>
+      <img src=<%= img_src_url(photo) %>>
+    </div>
   <% end %>
 <% end %>
